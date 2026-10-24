@@ -18,7 +18,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.tutorvirtualesucar.ui.theme.TutorVirtualESUCARTheme
 import androidx.compose.material3.Button
-
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.animation.AnimatedVisibility
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +39,8 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
+fun Greeting(name: String, modifier: Modifier = Modifier)
+{val mostrarGuia = rememberSaveable { mutableStateOf(false) }
     Column(modifier = modifier.padding(24.dp)) {
         Text(
             text = "¡Bienvenido a $name!",
@@ -52,8 +55,24 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
         )
         Spacer(modifier = Modifier.height(24.dp))
 
-        Button(onClick = { }) {
-            Text(text = "Ver guía metodológica")
+        Button(onClick = {
+            mostrarGuia.value = !mostrarGuia.value
+        }) {
+            Text(
+                text = if (mostrarGuia.value) "Ocultar guía"
+                else "Ver guía metodológica"
+            )
+            AnimatedVisibility(visible = mostrarGuia.value) {
+                Column { Spacer(modifier = Modifier.height(16.dp))
+                    Text(text = "Planteamiento del problema",
+                    style = MaterialTheme.typography.titleLarge
+                )
+
+                Text(
+                    text = "Describe qué problema investigarás, a quién afecta y por qué es importante estudiarlo.",
+                    style = MaterialTheme.typography.bodyLarge
+                )}
+            }
         }
     }
 }
