@@ -2,6 +2,7 @@ package com.example.tutorvirtualesucar.viewmodel
 
 import androidx.lifecycle.ViewModel
 import com.example.tutorvirtualesucar.model.Etapa
+import com.example.tutorvirtualesucar.model.PreguntaFrecuente
 
 class TutorViewModel : ViewModel() {
 
@@ -26,6 +27,14 @@ class TutorViewModel : ViewModel() {
             descripcion = "Describe cómo realizarás la investigación y recogerás la información.",
             formatoRequerido = "Documento escrito",
             fechaLimite = "Por definir"
+        )
+    )
+    val preguntasFrecuentes = listOf(
+        PreguntaFrecuente(
+            id = 1,
+            pregunta = "¿Cómo empiezo a plantear el problema?",
+            categoria = "Metodología",
+            respuesta = "Describe qué situación quieres investigar, a quién afecta y por qué es importante estudiarla."
         )
     )
 }

@@ -13,11 +13,14 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun InicioScreen(
     onVerGuia: () -> Unit = {},
+    onVerPreguntas: () -> Unit = {},
     modifier: Modifier = Modifier
 ) {
     Column(
         modifier = modifier.padding(24.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
+
+
     ) {
         Text(
             text = "Tutor Virtual ESUCAR",
@@ -32,5 +35,9 @@ fun InicioScreen(
         Button(onClick = onVerGuia) {
             Text("Ver guía metodológica")
         }
+
+        Button(onClick = onVerPreguntas) {
+            Text("Preguntas frecuentes")
+        }
+        }
     }
-}

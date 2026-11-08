@@ -1,5 +1,6 @@
 package com.example.tutorvirtualesucar
 
+import com.example.tutorvirtualesucar.ui.screens.PreguntasScreen
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -35,28 +36,37 @@ class MainActivity : ComponentActivity() {
         setContent {
             TutorVirtualESUCARTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    val verGuia = rememberSaveable { mutableStateOf(false) }
+                    val pantalla = rememberSaveable { mutableStateOf("inicio") }
 
-                    BackHandler(enabled = verGuia.value) {
-                        verGuia.value = false
+                    BackHandler(enabled = pantalla.value != "inicio") {
+                        pantalla.value = "inicio"
                     }
 
-                    if (verGuia.value) {
+                    if (pantalla.value == "inicio") {
+                        InicioScreen(
+                            onVerGuia = { pantalla.value = "guia" },
+                            onVerPreguntas = { pantalla.value = "preguntas" },
+                            modifier = Modifier.padding(innerPadding)
+                        )
+                    } else {
                         Column(modifier = Modifier.padding(innerPadding)) {
-                            Button(onClick = { verGuia.value = false }) {
+                            Button(onClick = { pantalla.value = "inicio" }) {
                                 Text("Volver al inicio")
                             }
 
-                            GuiaScreen(
-                                etapas = tutorViewModel.etapas,
-                                modifier = Modifier.weight(1f)
-                            )
+                            if (pantalla.value == "guia") {
+                                GuiaScreen(
+                                    etapas = tutorViewModel.etapas,
+                                    modifier = Modifier.weight(1f)
+                                )
+                            } else {
+                                PreguntasScreen(
+                                    preguntas = tutorViewModel.preguntasFrecuentes,
+                                    modifier = Modifier.weight(1f)
+                                )
+                            }
                         }
-                    } else {
-                        InicioScreen(
-                            onVerGuia = { verGuia.value = true },
-                            modifier = Modifier.padding(innerPadding)
-                        )
+
                     }
                 }
             }
