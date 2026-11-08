@@ -1,5 +1,6 @@
 package com.example.tutorvirtualesucar
 
+import com.example.tutorvirtualesucar.ui.screens.EntregasScreen
 import com.example.tutorvirtualesucar.ui.screens.PreguntasScreen
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -30,9 +31,11 @@ import com.example.tutorvirtualesucar.ui.screens.GuiaScreen
 import androidx.activity.compose.BackHandler
 class MainActivity : ComponentActivity() {
     private val tutorViewModel: TutorViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
         setContent {
             TutorVirtualESUCARTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
@@ -46,6 +49,8 @@ class MainActivity : ComponentActivity() {
                         InicioScreen(
                             onVerGuia = { pantalla.value = "guia" },
                             onVerPreguntas = { pantalla.value = "preguntas" },
+                            onVerEntregas = { pantalla.value = "entregas" },
+                            onVerTema = { pantalla.value = "tema" },
                             modifier = Modifier.padding(innerPadding)
                         )
                     } else {
@@ -54,19 +59,24 @@ class MainActivity : ComponentActivity() {
                                 Text("Volver al inicio")
                             }
 
-                            if (pantalla.value == "guia") {
-                                GuiaScreen(
+                            when (pantalla.value) {
+                                "guia" -> GuiaScreen(
                                     etapas = tutorViewModel.etapas,
                                     modifier = Modifier.weight(1f)
                                 )
-                            } else {
-                                PreguntasScreen(
+                                "preguntas" -> PreguntasScreen(
                                     preguntas = tutorViewModel.preguntasFrecuentes,
                                     modifier = Modifier.weight(1f)
                                 )
+                                "entregas" -> EntregasScreen(
+                                    entregas = tutorViewModel.entregas,
+                                    onMarcarEnDesarrollo = tutorViewModel::marcarEnDesarrollo,
+                                    modifier = Modifier.weight(1f)
+                                )
+                                "tema" -> Greeting(name = "Tutor Virtual ESUCAR")
+                                else -> Unit
                             }
                         }
-
                     }
                 }
             }

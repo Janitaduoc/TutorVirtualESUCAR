@@ -14,8 +14,12 @@ import androidx.compose.ui.unit.dp
 fun InicioScreen(
     onVerGuia: () -> Unit = {},
     onVerPreguntas: () -> Unit = {},
+    onVerEntregas: () -> Unit = {},
+    onVerTema: () -> Unit = {},
     modifier: Modifier = Modifier
 ) {
+
+
     Column(
         modifier = modifier.padding(24.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
@@ -39,5 +43,12 @@ fun InicioScreen(
         Button(onClick = onVerPreguntas) {
             Text("Preguntas frecuentes")
         }
+        Button(onClick = onVerEntregas) {
+            Text("Mis entregas")
+        }
+        Button(onClick = onVerTema) {
+            Text("Mi tema de investigación")
+        }
+
         }
     }
