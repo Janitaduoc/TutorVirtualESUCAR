@@ -1,5 +1,6 @@
 package com.example.tutorvirtualesucar
-
+import com.example.tutorvirtualesucar.ui.theme.TutorVirtualESUCARTheme
+import com.example.tutorvirtualesucar.ui.screens.InicioScreen
 import com.example.tutorvirtualesucar.ui.screens.EntregasScreen
 import com.example.tutorvirtualesucar.ui.screens.PreguntasScreen
 import android.os.Bundle
@@ -18,13 +19,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.tutorvirtualesucar.ui.theme.TutorVirtualESUCARTheme
 import androidx.compose.material3.Button
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.material3.OutlinedTextField
-import com.example.tutorvirtualesucar.ui.screens.InicioScreen
 import androidx.activity.viewModels
 import com.example.tutorvirtualesucar.viewmodel.TutorViewModel
 import com.example.tutorvirtualesucar.ui.screens.GuiaScreen
@@ -62,6 +61,8 @@ class MainActivity : ComponentActivity() {
                             when (pantalla.value) {
                                 "guia" -> GuiaScreen(
                                     etapas = tutorViewModel.etapas,
+                                    entregas = tutorViewModel.entregas,
+                                    onCambiarEstado = tutorViewModel::actualizarEstadoEntrega,
                                     modifier = Modifier.weight(1f)
                                 )
                                 "preguntas" -> PreguntasScreen(

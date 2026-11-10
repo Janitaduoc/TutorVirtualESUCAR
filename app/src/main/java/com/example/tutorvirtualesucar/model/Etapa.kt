@@ -5,5 +5,6 @@ data class Etapa(
     val titulo: String,
     val descripcion: String,
     val formatoRequerido: String,
-    val fechaLimite: String
+    val fechaLimite: String,
+    val pautas: List<String> = emptyList()
 )
