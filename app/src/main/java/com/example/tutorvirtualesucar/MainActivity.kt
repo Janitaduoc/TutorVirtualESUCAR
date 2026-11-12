@@ -46,6 +46,7 @@ class MainActivity : ComponentActivity() {
 
                     if (pantalla.value == "inicio") {
                         InicioScreen(
+                            entregas = tutorViewModel.entregas,
                             onVerGuia = { pantalla.value = "guia" },
                             onVerPreguntas = { pantalla.value = "preguntas" },
                             onVerEntregas = { pantalla.value = "entregas" },
